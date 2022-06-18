@@ -25,15 +25,16 @@ barplot(height=Persentase, names=Barang, horiz=T, col="green", main=Title, ylab=
 #a
 distribusi_binominal<-dbinom(.x, .size, .prob)
 data.frame(Pr=distribusi_binominal)
+distribusi_binominal_color<-c('red')
 #b
 distribusi_binominal_kumulatif<-pbinom(.x, .size, .prob)
 data.frame(Pr=distribusi_binominal_kumulatif)
+distribusi_binominal_kumulatif_color<-c('blue')
 #c
-plot(.x, distribusi_binominal, xlab="Number of Success", ylab="Probability Mass", main="Binominal Distribution: Trials=20, Prob. of success = 0.5", type="h")
-points(.x, distribusi_binominal, pch=19)
-abline(h=0, col="green")
-
-.x<-rep(.x, rep(2, length(.x)))
-.x
-plot(.x[-1], pbinom(.x, .size, .prob)[-length(.x)], xlab="Number of Success", ylab="Cumulative Probability", main="Binominal Distribution: Trials=20, Prob. of success = 0.5", type="l")
-abline(h=0, col="green")
+.xp<-rep(.x, rep(2, length(.x)))
+plot(.xp[-1], pbinom(.xp, .size, .prob)[-length(.xp)], xlab="Jumlah Sukses", ylab="Probabilitas", main="Distribusi Binominal: Percobaan=20, Peluang Sukses= 0.5", type="l", col=distribusi_binominal_kumulatif_color)
+points(.x, distribusi_binominal_kumulatif, pch=19, col=distribusi_binominal_kumulatif_color)
+lines(.x, distribusi_binominal, type="o", col=distribusi_binominal_color)
+points(.x, distribusi_binominal, pch=19, col=distribusi_binominal_color)
+abline(h=0, col="gray")
+legend('topleft',inset=0.05,c("Distribusi Binominal Kumulatif","Distribusi Binominal"),lty=1,col=c(distribusi_binominal_kumulatif_color,distribusi_binominal_color),title="Peluang")
